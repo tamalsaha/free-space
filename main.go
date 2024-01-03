@@ -35,7 +35,7 @@ func List(fsys fs.FS) []string {
 		if err != nil {
 			return err
 		}
-		if d.IsDir() && (d.Name() == ".go" || d.Name() == "bin" || d.Name() == "node_modules") {
+		if d.IsDir() && (d.Name() == ".go" || d.Name() == "bin" || d.Name() == "vendor" || d.Name() == "node_modules") {
 			result = append(result, filepath.Join(path, d.Name()))
 		}
 		return nil
