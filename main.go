@@ -9,8 +9,8 @@ import (
 )
 
 func main() {
-	dir := "/Users/tamal/go/src"
-	result := List(os.DirFS(dir))
+	root := "/Users/tamal/go/src"
+	result := List(root)
 	sort.Strings(result)
 
 	remaining := make([]string, 0, len(result))
@@ -29,14 +29,14 @@ func main() {
 	}
 }
 
-func List(fsys fs.FS) []string {
+func List(root string) []string {
 	var result []string
-	fs.WalkDir(fsys, ".", func(path string, d fs.DirEntry, err error) error {
+	fs.WalkDir(os.DirFS(root), ".", func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
 		if d.IsDir() && (d.Name() == ".go" || d.Name() == "bin" || d.Name() == "vendor" || d.Name() == "node_modules") {
-			result = append(result, filepath.Join(path, d.Name()))
+			result = append(result, filepath.Join(root, path))
 		}
 		return nil
 	})
